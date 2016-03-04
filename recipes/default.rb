@@ -4,6 +4,14 @@
 # need this for add-apt-repository to work properly
 package 'python-software-properties'
 
+bash 'setting up nodejs from deb.nodesource.com' do
+  user 'root'
+  code <<-EOC
+    curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+    apt-get install --yes nodejs
+  EOC
+end
+
 bash 'adding stable nginx ppa' do
   user 'root'
   code <<-EOC
@@ -16,7 +24,7 @@ end
 package "nginx"
 
 # create the new main nginx config file
-# do as little as possible in here, most 
+# do as little as possible in here, most
 # of this should be configured per site
 template "/etc/nginx/nginx.conf" do
   owner "root"
